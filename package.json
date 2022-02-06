@@ -1,0 +1,14 @@
+{
+  "name": "greenline_assessment",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "mongoose": "^6.2.0"
+  },
+  "scripts": {
+    "server": "nodemon server.js"
+  }
+}
