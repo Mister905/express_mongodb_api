@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const CustomerSchema = new mongoose.Schema({
     
-  company: {
+  company_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
   },
