@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const Company = require("../models/Company");
 
-// @route GET /api/company
+// @route GET /api/companies
 router.get("/", async (req, res) => {
   try {
     const companies = await Company.find();
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @route POST /api/company
+// @route POST /api/companies
 router.post(
   "/",
   [check("name", "Company name is a required field").not().isEmpty()],
@@ -39,7 +39,7 @@ router.post(
   }
 );
 
-// @route PUT /api/company/company_id
+// @route PUT /api/companies/:company_id
 router.put(
   "/:company_id",
   [check("name", "Company name is a required field").not().isEmpty()],
@@ -71,7 +71,7 @@ router.put(
   }
 );
 
-// @route GET /api/company/company_id
+// @route GET /api/companies/:company_id
 router.get("/:company_id", async (req, res) => {
   try {
     const { company_id } = req.params;
@@ -83,7 +83,7 @@ router.get("/:company_id", async (req, res) => {
   }
 });
 
-// @route DELETE /api/company/company_id
+// @route DELETE /api/companies/:company_id
 router.delete("/:company_id", async (req, res) => {
   try {
     const { company_id } = req.params;

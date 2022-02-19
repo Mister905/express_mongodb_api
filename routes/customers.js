@@ -1,37 +1,36 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const Product = require("../models/Product");
-const Company = require("../models/Company");
+const Customer = require("../models/Customer");
 
-// @route GET /api/product/company/:company_id
-router.get("/company/:company_id", async (req, res) => {
+// @route GET /api/customers/:company_id
+router.get("/:company_id", async (req, res) => {
   try {
     const { company_id } = req.params;
-    const products = await Product.find({ company_id });
-    return res.send(products);
+    const customers = await Customer.find({ company_id });
+    return res.send(customers);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send("Server Error");
   }
 });
 
-// @route GET /api/product/:product_id
-router.get("/:product_id", async (req, res) => {
+// @route GET /api/customers/:customer_id
+router.get("/:customer_id", async (req, res) => {
   try {
-    const { product_id } = req.params;
-    const product = await Product.findById(product_id);
-    return res.send(product);
+    const { customer_id } = req.params;
+    const customer = await Customer.findById(customer_id);
+    return res.send(customer);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send("Server Error");
   }
 });
 
-// @route POST /api/product/company/:company_id
+// @route POST /api/customers/:company_id
 router.post(
-  "/company/:company_id",
-  [check("name", "Product name is a required field").not().isEmpty()],
+  "/:company_id",
+  [check("name", "Customer name is a required field").not().isEmpty()],
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -43,14 +42,14 @@ router.post(
 
       const { name } = req.body;
 
-      const product_build = new Product({
+      const customer_build = new Customer({
         company: company_id,
         name,
       });
 
-      await product_build.save();
+      await customer_build.save();
 
-      return res.send(product_build);
+      return res.send(customer_build);
     } catch (error) {
       console.log(error.message);
       return res.status(500).send("Server Error");
@@ -58,29 +57,29 @@ router.post(
   }
 );
 
-// @route PUT /api/product/:product_id
+// @route PUT /api/customers/:customer_id
 router.put(
-  "/:product_id",
-  [check("name", "Product name is a required field").not().isEmpty()],
+  "/:customer_id",
+  [check("name", "Customer name is a required field").not().isEmpty()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { product_id } = req.params;
+    const { customer_id } = req.params;
 
     const { name } = req.body;
 
     try {
-      let updated_product = await Product.findOneAndUpdate(
-        { _id: product_id },
+      let updated_customer = await Customer.findOneAndUpdate(
+        { _id: customer_id },
         {
           name,
         },
         { new: true }
       );
-      return res.send(updated_product);
+      return res.send(updated_customer);
     } catch (error) {
       console.log(error.message);
       return res.status(500).send("Server Error");
@@ -88,15 +87,14 @@ router.put(
   }
 );
 
-
-// @route DELETE /api/product/product_id
-router.delete("/:product_id", async (req, res) => {
+// @route DELETE /api/customers/customer_id
+router.delete("/:customer_id", async (req, res) => {
   try {
-    const { product_id } = req.params;
+    const { customer_id } = req.params;
 
-    await Product.remove({ _id: product_id });
+    await Customer.remove({ _id: customer_id });
 
-    return res.send("Product deleted");
+    return res.send("Customer deleted");
   } catch (error) {
     console.log(error.message);
     return res.status(500).send("Server Error");

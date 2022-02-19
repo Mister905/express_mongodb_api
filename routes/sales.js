@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const Product = require("../models/Product");
 const Sale = require("../models/Sale");
 
-// @route GET /api/sale/product/:product_id
-router.get("/product/:product_id", async (req, res) => {
+// @route GET /api/sales/:product_id
+router.get("/:product_id", async (req, res) => {
   try {
     const { product_id } = req.params;
     const sales = await Sale.find({ product_id });
@@ -16,7 +15,7 @@ router.get("/product/:product_id", async (req, res) => {
   }
 });
 
-// @route GET /api/sale/:sale_id
+// @route GET /api/sales/:sale_id
 router.get("/:sale_id", async (req, res) => {
   try {
     const { sale_id } = req.params;
@@ -28,8 +27,8 @@ router.get("/:sale_id", async (req, res) => {
   }
 });
 
-// @route POST /api/sale/product/:product_id
-router.post("/product/:product_id", async (req, res) => {
+// @route POST /api/sales/:product_id
+router.post("/:product_id", async (req, res) => {
   try {
     const { product_id } = req.params;
 
@@ -46,7 +45,7 @@ router.post("/product/:product_id", async (req, res) => {
   }
 });
 
-// @route DELETE /api/sale/:sale_id
+// @route DELETE /api/sales/:sale_id
 router.delete("/:sale_id", async (req, res) => {
   try {
     const { sale_id } = req.params;

@@ -13,17 +13,17 @@ mongoose
 
 // ROUTES
 
-const company = require("./routes/company");
-app.use("/api/company", company);
+const companies = require("./routes/companies");
+app.use("/api/companies", companies);
 
-const customer = require("./routes/customer");
-app.use("/api/customer", customer);
+const customers = require("./routes/customers");
+app.use("/api/customers", customers);
 
-const product = require("./routes/product");
-app.use("/api/product", product);
+const products = require("./routes/products");
+app.use("/api/products", products);
 
-const sale = require("./routes/sale");
-app.use("/api/sale", sale);
+const sales = require("./routes/sales");
+app.use("/api/sales", sales);
 
 const PORT = process.env.PORT || 5000;
 
