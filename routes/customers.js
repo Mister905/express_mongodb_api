@@ -3,11 +3,10 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const Customer = require("../models/Customer");
 
-// @route GET /api/customers/:company_id
-router.get("/:company_id", async (req, res) => {
+// @route GET /api/customers
+router.get("/", async (req, res) => {
   try {
-    const { company_id } = req.params;
-    const customers = await Customer.find({ company_id });
+    const customers = await Customer.find();
     return res.send(customers);
   } catch (error) {
     console.log(error.message);
@@ -21,6 +20,18 @@ router.get("/:customer_id", async (req, res) => {
     const { customer_id } = req.params;
     const customer = await Customer.findById(customer_id);
     return res.send(customer);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send("Server Error");
+  }
+});
+
+// @route GET /api/customers/company/:company_id
+router.get("/company/:company_id", async (req, res) => {
+  try {
+    const { company_id } = req.params;
+    const customers = await Customer.find({ company_id });
+    return res.send(customers);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send("Server Error");

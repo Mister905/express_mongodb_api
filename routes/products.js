@@ -2,7 +2,17 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const Product = require("../models/Product");
-const Company = require("../models/Company");
+
+// @route GET /api/products
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    return res.send(products);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send("Server Error");
+  }
+});
 
 // @route GET /api/products/:company_id
 router.get("/:company_id", async (req, res) => {
@@ -87,7 +97,6 @@ router.put(
     }
   }
 );
-
 
 // @route DELETE /api/products/product_id
 router.delete("/:product_id", async (req, res) => {

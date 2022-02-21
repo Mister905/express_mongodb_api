@@ -3,11 +3,10 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const Sale = require("../models/Sale");
 
-// @route GET /api/sales/:product_id
-router.get("/:product_id", async (req, res) => {
+// @route GET /api/sales
+router.get("/", async (req, res) => {
   try {
-    const { product_id } = req.params;
-    const sales = await Sale.find({ product_id });
+    const sales = await Sale.find();
     return res.send(sales);
   } catch (error) {
     console.log(error.message);
@@ -21,6 +20,18 @@ router.get("/:sale_id", async (req, res) => {
     const { sale_id } = req.params;
     const sale = await Sale.findById(sale_id);
     return res.send(sale);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send("Server Error");
+  }
+});
+
+// @route GET /api/sales/product/:product_id
+router.get("/product/:product_id", async (req, res) => {
+  try {
+    const { product_id } = req.params;
+    const sales = await Sale.find({ product_id });
+    return res.send(sales);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send("Server Error");
